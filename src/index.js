@@ -5,7 +5,7 @@ import menu from './menu.json';
 const menuItems = document.querySelector('.menu');
 menuItems.insertAdjacentHTML('beforeend', cardDishTpl(menu));
 
-/* Переключатель темы */
+/* Переключатель темы + localStorage */
 const bodyTheme = document.querySelector('body');
 const switchToggle = document.getElementById('theme-switch-toggle');
 
