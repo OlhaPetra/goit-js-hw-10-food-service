@@ -1,6 +1,5 @@
 import cardDishTpl from './templates/templates.hbs';
 import menu from './menu.json';
-import { darkblue } from 'color-name';
 
 /* Шаблонизатор */
 const menuItems = document.querySelector('.menu');
@@ -8,26 +7,31 @@ menuItems.insertAdjacentHTML('beforeend', cardDishTpl(menu));
 
 /* Переключатель темы */
 const bodyTheme = document.querySelector('body');
-const switchToggle = document.querySelector('#theme-switch-toggle');
+const switchToggle = document.getElementById('theme-switch-toggle');
 
-
-bodyTheme.classList.add('light-theme');
+bodyTheme.classList.add(
+    localStorage.getItem('theme') === null ? 'light-theme' : localStorage.getItem('theme'),
+);
 
 switchToggle.addEventListener('change', onCheckbox);
 
-body.classList.add(localStorage.getItem('currentTheme'));
-
-
-function onCheckbox(event) {
-    event.preventDefault();
-    if (this.checked) {
-        bodyTheme.classList.add('dark-theme');
-        bodyTheme.classList.remove('light-theme');
-        localStorage.setItem('currentTheme', 'dark-theme')
-        
-    } else {
-        bodyTheme.classList.add('light-theme');
-        bodyTheme.classList.remove('dark-theme');
-        localStorage.setItem('currentTheme', 'light-theme')
+function onCheckbox(e) {
+    if (e.target.checked) {
+        bodyTheme.classList.replace('light-theme', 'dark-theme');
+        localStorage.setItem('theme', 'dark-theme')
+        return        
     }
+    
+        bodyTheme.classList.replace('dark-theme', 'light-theme');
+        localStorage.setItem('theme', 'light-theme')
 }
+
+function check() {
+    if (localStorage.getItem('theme') === 'dark-theme') {
+        switchToggle.checked = true;
+    } else {
+        switchToggle.checked = false;
+     }    
+}
+
+check()
